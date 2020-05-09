@@ -48,7 +48,6 @@ int main()
   int spp_count;
   spp_count = rg.generatePointsAndNormals_spt(1000000);
   spp_count = rg.generate_detangled_spp();
-  // int sample_count = rg.generate_detangled_spp();
   printf("Done generating rays detangled. SPP count: %i \n", spp_count);
   
   /* Apply ray sorting + save rays */
@@ -62,6 +61,8 @@ int main()
   RayTraceManager rt_manager = RayTraceManager(rg);
   rt_manager.traceCWBVH(rg);
   rt_manager.traceAila(rg);
+
+  rt_manager.evaluateAndPrintForPLYVisualization(rg, out_ply_path);
 
   printf("Done, traced %i rays \n", rg.getRayCount());
 
