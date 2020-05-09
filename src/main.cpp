@@ -8,14 +8,14 @@
 
 int main()
 {
-  const std::string model_base_path = "/home/francois/Documents/RayTracing/models/"; // pc-12
+  const std::string model_base_path = "/home/francois/Documents/UBC/masters/CWBVH/"; // pc-12
   // const std::string model_base_path = "/home/francois/Documents/RayTracing/models/"; // pc-16
 
   const std::string ply_base_path = "./ply_files/";
   const std::string ray_base_path = "./ray_files/"; 
 
-  // const std::string model_name = "teapot";
-  // const std::string obj_path_addition = "/teapot/teapot.obj";
+  const std::string model_name = "teapot";
+  const std::string obj_path_addition = "teapot.obj";
 
   // const std::string model_name = "sponza";
   // const std::string obj_path_addition = "Sponza/models/sponza.obj";
@@ -23,27 +23,29 @@ int main()
   // const std::string model_name = "dragon";
   // const std::string obj_path_addition = "Dragon/dragon.obj";
 
-  const std::string model_name = "san-miguel";
-  const std::string obj_path_addition = "San_Miguel/san-miguel.obj";
+  // const std::string model_name = "san-miguel";
+  // const std::string obj_path_addition = "San_Miguel/san-miguel.obj";
 
   const std::string out_ply_path = ply_base_path + model_name;
   const std::string model_path = model_base_path + obj_path_addition;
 
-  RayGenerator rg = RayGenerator(4, 32, 0.1, 10); /*spp, spt, t_min, t_max*/
+  /* Set Up the Ray Generator */
+  RayGenerator rg = RayGenerator(4, 4, 0.1, 10); /*spp, spt, t_min, t_max*/
 
   /* Load the model */ 
   int triangle_count = rg.loadModelOBJ(model_path);
   assert(triangle_count > 0);
   printf("Done loading obj. Tri count: %i \n", triangle_count);
 
+  /*Build the acceleration structures*/
   BVHManager bvh_manager = BVHManager();
 
-  // bvh_manager.buildBVH2(rg);
+  bvh_manager.buildBVH2(rg);
   bvh_manager.buildCWBVH(rg);
 
   /* Generate the points and normals inside the triangles */
-  int sample_count = rg.generatePointsAndNormals_spt();
-  printf("Done generating points and normals - spt first. Sample Count: %i \n", sample_count);
+  // int sample_count = rg.generatePointsAndNormals_spt();
+  // printf("Done generating points and normals - spt first. Sample Count: %i \n", sample_count);
 
 
   /* Generate rays - uses points and normals -> this takes a while */
@@ -51,24 +53,17 @@ int main()
   spp_count = rg.generate_detangled_spp();
   printf("Done generating rays detangled. SPP count: %i \n", spp_count);
   
+  /* Apply ray sorting + save rays */
   rg.raySorting(rg.random_shuffle);
   rg.saveRaysToFile(ray_base_path, model_name + "_detangled_random");
 
-  exit(0);
-    
-  // rg.clear_rays();
-  // spp_count = rg.generate_entangled_spp(32);
-  // printf("Done generating rays entangled. SPP count: %i \n", spp_count);
-  // rg.saveRaysToFile(ray_base_path, model_name + "_entangled_32");
-
-  
-  rg.readRaysFromFile(ray_base_path + "sponza_randomshuffle_16785088_12_10.ray_file", 100000);
-
-  /* Upload rays */
+  /* Upload rays to the GPU*/
   rg.uploadRaysToGPU();
 
+  /* Trace the rays */ 
   RayTraceManager rt_manager = RayTraceManager(rg);
   rt_manager.traceCWBVH(rg);
+  rt_manager.traceAila(rg);
 
   printf("Done, traced %i rays \n", rg.getRayCount());
 

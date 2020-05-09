@@ -62,6 +62,7 @@ int RayGenerator::loadModelOBJ(const std::string& model_path)
 {
 
   objl::Loader loader;
+  std::cout << model_path << std::endl;
   assert(loader.LoadFile(model_path));
 
   // loader.LoadFile("C:/Users/f.demoullin/Documents/graphics_assets/teapot.obj");

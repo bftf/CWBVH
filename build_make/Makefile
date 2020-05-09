@@ -11,12 +11,9 @@ USING_OPTIX=0# 1 enables OptiX
 OPTIX_INCLUDE_DIR = ~/Documents/RayTracing/NVIDIA-OptiX-SDK-5.1.0-linux64/include
 OPTIX_LIB = /home/francois/Documents/RayTracing/NVIDIA-OptiX-SDK-5.1.0-linux64/lib64/ # make sure this is in LD_LIBRARY_PATH
 
-# Embree3 - pc12
+# Embree3
 EMBREE_INCLUDE_DIR = ~/Documents/RayTracing/embree/include
 EMBREE_LIB = ~/Documents/RayTracing/embree/build
-# Embree3 - pc16
-# EMBREE_INCLUDE_DIR = ~/Documents/embree/include
-# EMBREE_LIB = ~/Documents/embree/build
 
 # CUDA
 # plain cuda, use this option for running on hardware not on gpgpu-sim
@@ -33,7 +30,7 @@ else
 	DFLAGS = 
 endif
 
-GPUDEBUGFLAG = -G # Only use it when debugging the kernel in cuda gdb, don't set this when running with GPGPU-Sim!
+GPUDEBUGFLAG = #-G # Only use it when debugging the kernel in cuda gdb, don't set this when running with GPGPU-Sim!
 
 
 all: build
