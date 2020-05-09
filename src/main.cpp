@@ -43,14 +43,12 @@ int main()
   bvh_manager.buildBVH2(rg);
   bvh_manager.buildCWBVH(rg);
 
-  /* Generate the points and normals inside the triangles */
-  // int sample_count = rg.generatePointsAndNormals_spt();
-  // printf("Done generating points and normals - spt first. Sample Count: %i \n", sample_count);
-
 
   /* Generate rays - uses points and normals -> this takes a while */
   int spp_count;
+  spp_count = rg.generatePointsAndNormals_spt(1000000);
   spp_count = rg.generate_detangled_spp();
+  // int sample_count = rg.generate_detangled_spp();
   printf("Done generating rays detangled. SPP count: %i \n", spp_count);
   
   /* Apply ray sorting + save rays */
