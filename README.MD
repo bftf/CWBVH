@@ -1,7 +1,8 @@
 # Ray-Traced Ambient Occlusion Benchmark for Hybrid Rendering Workloads
 
-![RTAO Dragon]{https://github.com/bftf/CWBVH/tree/master/images/dragon_readme.png}
-![RTAO Hairball]{https://github.com/bftf/CWBVH/tree/master/images/hairball_readme.png}
+![Image: RTAO Dragon](https://github.com/bftf/CWBVH/tree/master/images/dragon_readme.png)
+
+![Image: RTAO Hairball](https://github.com/bftf/CWBVH/tree/master/images/hairball_readme.png)
 
 # Build
 
