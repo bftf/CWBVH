@@ -7,7 +7,7 @@
 
 #include <cstdio>
 
-#define ENABLE_PROFILING 0 // set to 0 when using GPGPU-Sim, 1 when profiling cuda on actual HW
+#define ENABLE_PROFILING 1 // set to 0 when using GPGPU-Sim, 1 when profiling cuda on actual HW
 
 __device__ float4* BVHTreeNodes;
 __device__ float4* TriangleWoopCoordinates;

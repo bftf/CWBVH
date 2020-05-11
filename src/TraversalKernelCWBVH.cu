@@ -7,7 +7,7 @@
 #include "Logger.h"
 #include "CUDAAssert.h"
 
-#define ENABLE_PROFILING 0 // set to 0 when using GPGPU-Sim, 1 when profiling cuda on actual HW
+#define ENABLE_PROFILING 1 // set to 0 when using GPGPU-Sim, 1 when profiling cuda on actual HW
 
 __device__ unsigned __bfind(unsigned i) { unsigned b; asm volatile("bfind.u32 %0, %1; " : "=r"(b) : "r"(i)); return b; }
 
@@ -367,6 +367,10 @@ __global__ void rtTraceCWBVHDynamicFetch(
         }
 				else
 				{
+					if (tmax > 1 && tmax < 5)
+					{
+						printf("test\n");
+					}
 					rayResultBuffer[rayidx].t_triId_u_v = make_float4(tmax, int_as_float(hitAddr), triangleuv.x, triangleuv.y);
 					break;
 				}

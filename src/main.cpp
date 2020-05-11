@@ -60,71 +60,15 @@ int main()
   /* Trace the rays */ 
   RayTraceManager rt_manager = RayTraceManager(rg);
   rt_manager.traceCWBVH(rg);
-  rt_manager.traceAila(rg);
-
+  // rt_manager.traceAila(rg);
+  
+  #ifdef OPTIX_PRIME
+  rt_manager.traceOptiXPrime(rg);
+  #endif
+  
+  /* Print info for visualizing the rays */
   rt_manager.evaluateAndPrintForPLYVisualization(rg, out_ply_path);
 
-  printf("Done, traced %i rays \n", rg.getRayCount());
-
-  exit(0);
-
-  /* Shuffle and save to file -> this should only be done once
-  rg.raySorting(rg.random_shuffle);
-  rg.saveRaysToFile(ray_base_path, model_name + "_randomshuffle");
-
-  rg.raySorting(rg.origin);
-  rg.saveRaysToFile(ray_base_path, model_name + "_origin");
-
-  rg.raySorting(rg.random_shuffle);
-  rg.raySorting(rg.direction);
-  rg.saveRaysToFile(ray_base_path, model_name + "_direction");
-  
-  rg.readRaysFromFile(ray_base_path + "sponza_randomshuffle_16785088_12_10.ray_file", 16785088);
-  rg.raySorting(rg.origin_chunk);
-  rg.saveRaysToFile(ray_base_path, model_name + "_origin_chunk_8192");
-
-  printf("Done sorting rays\n");
-  exit(0);
-  */
-
-  // rg.readRaysFromFile(ray_base_path + "sponza_randomshuffle_16785088_12_10.ray_file", 16785088);
-  // rg.readRaysFromFile(ray_base_path + "sponza_direction_16785088_12_10.ray_file", 16785088);
-  // rg.readRaysFromFile(ray_base_path + "sponza_origin_16785088_12_10.ray_file", 16785088);
-
-  // rg.readRaysFromFile(ray_base_path + "teapot_origin_1spp_64spt_origin_404480_18_10.ray_file", 404480);
-  // rg.readRaysFromFile(ray_base_path + "sponza_origin_chunk_8192_16785088_13_10.ray_file", 16785088);
-  // rg.readRaysFromFile(ray_base_path + "sponza_direction_16785088_12_10.ray_file", 200000);
-  // rg.readRaysFromFile(ray_base_path + "sponza_origin_16785088_12_10.ray_file", 200000);
-
-  // rg.readRaysFromFile(ray_base_path + "dragon_500000_30_9.ray_file", 200000);
-  // rg.readRaysFromFile(ray_base_path + "teapot_100_28_9.ray_file", 100);
-  
-  // rg.fillWithListOfRays(); // fill custom list of rays for debugging
-  
-  rg.uploadRaysToGPU();
-
-
-
-
-  /*
-  for (int i=0; i < 5000; i++)
-  {
-    rg.uploadSingleRayToGPU(i);
-    rt_manager.traceCWBVHSingleRay(rg);
-    printf("Done tracing ray number: %i\n", i);
-  }
-  */
-
-  /* OptiX */
-  // rt_manager.traceOptiXPrime(rg);
-
-  /* Aila */    
-  // rt_manager.traceAila(rg); 
-
-  /* CWBVH */
-  rt_manager.traceCWBVH(rg);
-  
-  rt_manager.evaluateAndPrintForPLYVisualization(rg, out_ply_path); // prints outcome from kernels for visualization (make sure 8, 8 is enabled when reading from file!)
   // rt_manager.debugging(rg); // for debugging - prints output of kernels into command line
   
   printf("Done, traced %i rays \n", rg.getRayCount());

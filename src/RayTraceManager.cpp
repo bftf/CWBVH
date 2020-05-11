@@ -84,6 +84,8 @@ void RayTraceManager::evaluateAndPrintForPLYVisualization(RayGenerator& rg, cons
   assert(numRays % rg.spp == 0);
   printf("Visualizer detected: %i spp\n", rg.spp);
 
+  std::cout << out_ply_path << std::endl;
+
   std::ofstream outfile(out_ply_path);
 
   // header
@@ -98,6 +100,7 @@ void RayTraceManager::evaluateAndPrintForPLYVisualization(RayGenerator& rg, cons
   outfile << "property uchar blue" << std::endl;
   outfile << "end_header" << std::endl;
 
+  std::cout << "numRays: " << (int)numRays << " rg.spp: " << rg.spp << std::endl;
   // data (greyscale)
   for (int i = 0; i < numRays/rg.spp; i++)
   {

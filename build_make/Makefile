@@ -30,7 +30,7 @@ else
 	DFLAGS = 
 endif
 
-GPUDEBUGFLAG = #-G # Only use it when debugging the kernel in cuda gdb, don't set this when running with GPGPU-Sim!
+GPUDEBUGFLAG = -G # Only use it when debugging the kernel in cuda gdb, don't set this when running with GPGPU-Sim!
 
 
 all: build
