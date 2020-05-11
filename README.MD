@@ -1,5 +1,7 @@
 # Ray-Traced Ambient Occlusion Benchmark for Hybrid Rendering Workloads
 
+![alt text](https://github.com/bftf/CWBVH/tree/master/images/dragon_readme.png "AO dragon")
+![alt text](https://github.com/bftf/CWBVH/tree/master/images/hairball_readme.png "AO hairball")
 
 # Build
 
