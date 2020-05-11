@@ -3,11 +3,6 @@
 #include <cassert>
 #include "Logger.h"
 
-// TODO: FIX THIS!!! ->  it's a dangerous hack to get around driver errors
-#define cudaCheck(x) \
-{ \		
-}
-/*
 #define cudaCheck(x) \
 	{ \
 		cudaError_t err = (x); \
@@ -16,4 +11,3 @@
 			assert(0); \
 		} \
 	}
-*/
